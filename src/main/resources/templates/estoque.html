@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Estoque | Controle de Estoque</title>
+        <link rel="stylesheet" href="/estoque-ui.css">
+        <link rel="icon" type="image/png" href="/favicon.png">
+    </head>
+    <body>
+        <main class="dashboard">
+            <header class="topbar">
+                <div class="brand" aria-label="Controle de Estoque"><span class="brand-park">Controle de Estoque</span></div>
+                <span class="status">Sistema operacional</span>
+            </header>
+            <section class="hero">
+                <h1>Estoque de produtos</h1>
+                <p class="subtitle">Nome, quantidade, valor unitário e valor total de cada produto cadastrado.</p>
+                <div class="hero-actions"><a class="button" href="/produtos/cadastrar">Cadastrar produto →</a></div>
+            </section>
+            <section class="panel" style="margin-top:18px">
+                <p class="helper" style="color:var(--success);font-weight:600" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+                <h3>Produtos em estoque</h3>
+                <div class="vehicle-list" th:if="${!produtos.isEmpty()}">
+                    <table class="vehicle-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                                <th>Valor unitário</th>
+                                <th>Valor total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p : ${produtos}">
+                                <td th:text="${p.nome}"></td>
+                                <td th:text="${p.quantidade}"></td>
+                                <td th:text="${'R$ ' + #numbers.formatDecimal(p.preco, 1, 'POINT', 2, 'COMMA')}"></td>
+                                <td th:text="${'R$ ' + #numbers.formatDecimal(p.valorTotal, 1, 'POINT', 2, 'COMMA')}"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total geral</td>
+                                <td th:text="${quantidadeTotal}"></td>
+                                <td></td>
+                                <td th:text="${'R$ ' + #numbers.formatDecimal(valorTotalEstoque, 1, 'POINT', 2, 'COMMA')}"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <p class="empty" th:if="${produtos.isEmpty()}">Nenhum produto cadastrado ainda.</p>
+            </section>
+        </main>
+    </body>
+</html>

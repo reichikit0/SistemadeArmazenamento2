@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastrar produto | Controle de Estoque</title>
+        <link rel="stylesheet" href="/estoque-ui.css">
+        <link rel="icon" type="image/png" href="/favicon.png">
+    </head>
+    <body>
+        <main class="page">
+            <section class="card wide">
+                <div class="brand" aria-label="Controle de Estoque"><span class="brand-park">Controle de Estoque</span></div>
+                <h1>Cadastrar produto</h1>
+                <p class="subtitle">Informe o nome, o preço e a quantidade do produto. Se o nome já existir, a quantidade é somada ao estoque.</p>
+                <p class="helper" style="color:var(--danger);font-weight:600" th:if="${erro != null}" th:text="${erro}"></p>
+                <form class="form" method="post" action="/produtos/cadastrar">
+                    <div class="field">
+                        <label for="nome">Nome</label>
+                        <input class="input" type="text" name="nome" id="nome" placeholder="Ex.: Energético 473ml" th:value="${produto.nome}" required>
+                    </div>
+                    <div class="field">
+                        <label for="preco">Preço (R$)</label>
+                        <input class="input" type="number" name="preco" id="preco" placeholder="0,00" step="0.01" min="0.01" th:value="${produto.preco}" required>
+                    </div>
+                    <div class="field">
+                        <label for="quantidade">Quantidade</label>
+                        <input class="input" type="number" name="quantidade" id="quantidade" placeholder="0" step="1" min="0" th:value="${produto.quantidade}" required>
+                    </div>
+                    <button type="submit">Cadastrar produto</button>
+                </form>
+                <div class="divider"></div>
+                <p class="helper center"><a href="/produtos">Ver estoque →</a></p>
+            </section>
+        </main>
+    </body>
+</html>
